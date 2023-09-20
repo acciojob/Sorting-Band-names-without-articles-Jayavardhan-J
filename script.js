@@ -1,23 +1,26 @@
-//your code here
-let touristSpots = ['The Virupaksha Temple', 'Victoria Memorial', 'Tajmahal'];
+let regexp = /\bthe\b|\ban\b|\ba\b/gi;
 
-let arr=[];
-let map={};
-for(let i=0;i<touristSpots.length;i++){
-	let words = touristSpots[i].split(" ");
-	let finalStr="";
-	for(let j=0;j<words.length;j++){
-		let curr=words[j].toLowerCase();
-		if(curr!='the' && curr!='a' && curr!='an')finalStr=word[j]+" ";
-		
-	}
-	let withoutArticle = finalStr.trim();
-	map[withoutArticle]=touristSpots[i];
-	arr.push(withoutArticle);
+let arr = [
+  "The Virupaksha Temple", 
+  "a Victoria Memorial", 
+  "an Tajmahal", 
+];
+let articleLessArray = [];
+let mp = {};
+for (let i = 0; i < arr.length; i++) {
+  let articleLessItem = arr[i].replace(regexp, "").trim();
+  articleLessItem = articleLessItem.replace(/  /g, " "); // remove two spaces with a single space
+  articleLessArray.push(articleLessItem);
+  mp[articleLessItem] = arr[i];
+ 
 }
-arr.sort();
-let ans=[];
-for(let i in arr){
-	ans[i]=map[arr[i]];
-}
-console.log(ans);
+articleLessArray.sort();
+const htmlUlElemnt =document.getElementsByTagName("ul")[0];
+htmlUlElemnt.id="band";
+
+ for(let i of articleLessArray){
+	const elementLi = document.createElement("li");
+	 htmlUlElemnt.appendChild(elementLi);
+	 elementLi.innerText=i;  
+	 
+ }
